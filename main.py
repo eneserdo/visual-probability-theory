@@ -5,9 +5,7 @@ import sys
 from typing import Dict, Type, Callable
 
 # Import visualization classes
-from marg import ProbabilityPlotApp
-from cond import ConditionalPlotApp
-from clt import CLTVisualizer
+from src import ConditionalPlotApp, ProbabilityPlotApp, CLTVisualizer
 
 class VisualizationLauncher:
     def __init__(self):
