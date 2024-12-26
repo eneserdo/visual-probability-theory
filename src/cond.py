@@ -15,10 +15,10 @@ class CustomNavigationToolbar(NavigationToolbar2Tk):
         # Prevent the pack geometry manager from being used
         pass
 
-class ConditionalPlotApp:
-    def __init__(self, master):
-        self.master = master
-        self.master.title("Interactive Probability Distributions")
+class ConditionalPlotter(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Interactive Probability Distributions")
         
         # Create main frame
         self.main_frame = ttk.Frame(self.master, padding="10")
@@ -191,10 +191,7 @@ class ConditionalPlotApp:
         self.update_all_plots()
         self.canvas.draw()
 
-def main():
-    root = tk.Tk()
-    app = ConditionalPlotApp(root)
-    root.mainloop()
 
 if __name__ == "__main__":
-    main()
+    app = ConditionalPlotter()
+    app.mainloop()

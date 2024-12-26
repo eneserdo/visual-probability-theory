@@ -7,7 +7,8 @@ from matplotlib.figure import Figure
 from scipy import stats
 from scipy.signal import convolve
 
-class CLTVisualizer(tk.Tk):
+# TODO: to make it consistent with the rest of the project, do not inherit and take master as an argument
+class CLTPlotter(tk.Tk):
     def __init__(self):
         super().__init__()
 
@@ -216,5 +217,5 @@ class CLTVisualizer(tk.Tk):
             print(f"Error updating plot: {e}")
 
 if __name__ == "__main__":
-    app = CLTVisualizer()
+    app = CLTPlotter()
     app.mainloop()

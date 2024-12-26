@@ -6,13 +6,18 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 import tkinter as tk
 from tkinter import ttk
 
-class ProbabilityPlotApp:
-    def __init__(self, master):
-        self.master = master
-        self.master.title("Marginal Probability Visualization")
+class ProbabilityPlotApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Marginal Probability Visualization")
+
+        self.geometry("800x1000")
+        self.bind('<q>', self.quit_application)
+        self.bind('<s>', self.start_animation)
+        self.bind('<r>', self.reset_animation)
         
         # Create main frame
-        self.main_frame = ttk.Frame(self.master, padding="10")
+        self.main_frame = ttk.Frame(self, padding="10")
         self.main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
         # Create matplotlib figure with subplots
@@ -60,8 +65,8 @@ class ProbabilityPlotApp:
         self.create_plot()
         
         # Configure grid weights
-        self.master.columnconfigure(0, weight=1)
-        self.master.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
         self.main_frame.columnconfigure(0, weight=1)
         self.main_frame.rowconfigure(0, weight=1)
 
@@ -192,10 +197,7 @@ class ProbabilityPlotApp:
         self.current_sum = np.zeros_like(self.x)
         self.create_plot()
 
-def main():
-    root = tk.Tk()
-    app = ProbabilityPlotApp(root)
-    root.mainloop()
 
 if __name__ == "__main__":
-    main()
+    app = ProbabilityPlotApp()
+    app.mainloop()

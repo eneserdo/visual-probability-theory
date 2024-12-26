@@ -1,23 +1,25 @@
 import tkinter as tk
 from tkinter import ttk
-import importlib
-import sys
 from typing import Dict, Type, Callable
 
 # Import visualization classes
-from src import ConditionalPlotApp, ProbabilityPlotApp, CLTVisualizer
+from src import ConditionalPlotter, ProbabilityPlotApp, CLTPlotter, ConvolutionPlotter, LLNPlotter
 
 class VisualizationLauncher:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Probability Visualizations")
         self.root.geometry("400x500")
+
+        self.root.bind('<q>', self.quit_application)
         
         # Dictionary mapping visualization names to their launch functions
         self.visualizations: Dict[str, Callable] = {
-            "Marginalization": self.launch_marginalization,
-            "Conditional Distributions": self.launch_conditional,
-            "Central Limit Theorem": self.launch_clt
+            # "Marginalization": ProbabilityPlotApp, # FIXME ProbabilityPlotApp is not working
+            "Conditional Distributions": ConditionalPlotter,
+            "Central Limit Theorem": CLTPlotter,
+            "Convolution of two discrete pdf": ConvolutionPlotter, # ok
+            "Law of Large Numbers": LLNPlotter
         }
         
         self.create_widgets()
@@ -62,24 +64,6 @@ class VisualizationLauncher:
         )
         quit_btn.grid(row=len(self.visualizations)+2, column=0, pady=(20, 0))
 
-    def launch_visualization(self, VisualizerClass: Type, *args, **kwargs):
-        """Generic method to launch a visualization window"""
-        new_window = tk.Toplevel(self.root)
-        app = VisualizerClass(new_window, *args, **kwargs)
-        return app
-
-    def launch_marginalization(self):
-        """Launch marginalization visualization"""
-        self.launch_visualization(ProbabilityPlotApp)
-
-    def launch_conditional(self):
-        """Launch conditional distribution visualization"""
-        self.launch_visualization(ConditionalPlotApp)
-
-    def launch_clt(self):
-        """Launch CLT visualization"""
-        # CLT visualizer doesn't need a master window
-        CLTVisualizer()
 
     def run(self):
         self.root.mainloop()
